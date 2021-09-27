@@ -5,7 +5,8 @@ cyrillic_upper = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭ
 latin_upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 cyrillic_lower = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя'
 latin_lower = 'abcdefghijklmnopqrstuvwxyz'
-programOutput = ""
+programOutput = str()
+otherProgramOutput = str()
 
 def caesarCipher(my_str, n, alphabet_upper, alphabet_lower, defOutput):
     for i in range(len(my_str)):
@@ -41,11 +42,23 @@ except Exception:
     m.getch()
     sys.exit()
 if (lang_pref == 1) or (lang_pref == 2):
-    programOutput = caesarCipher(userInput,n,cyrillic_upper,cyrillic_lower,programOutput)
-    if not programOutput.isalpha():
-        print("Язык выбран некорректно, но программа будет выполнена")
+    if (lang_pref == 1):
+        programOutput = caesarCipher(userInput,n,cyrillic_upper,cyrillic_lower,programOutput)
+    elif (lang_pref == 2):
         programOutput = caesarCipher(userInput,n,latin_upper,latin_lower,programOutput)
-    print("Преобразованная строка:", programOutput)
+    if len(programOutput) != len(userInput):
+        print("Язык выбран некорректно")
+        if (lang_pref == 1):
+            otherProgramOutput = caesarCipher(userInput,n,latin_upper,latin_lower,otherProgramOutput)
+        elif (lang_pref == 2):
+            otherProgramOutput = caesarCipher(userInput,n,cyrillic_upper,cyrillic_lower,otherProgramOutput)
+        print("Преобразованная строка:", otherProgramOutput)
+        m.getch()
+        sys.exit()
+    else:
+        print("Преобразованная строка:", programOutput)
+        m.getch()
+        sys.exit()
 else:
     print("Неправильный выбор языка, перезапустите программу")
     m.getch()
